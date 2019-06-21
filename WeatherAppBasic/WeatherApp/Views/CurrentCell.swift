@@ -76,7 +76,7 @@ extension CurrentCell {
 		
 		// Container
 		let container = UIStackView()
-		container.spacing = 5
+		container.spacing = 10
 		container.axis = .vertical
 		container.distribution = .fill
 		addSubview(container)

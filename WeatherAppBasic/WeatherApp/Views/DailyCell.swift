@@ -49,7 +49,7 @@ extension  DailyCell {
 	fileprivate func setupView() {
 	
 		// Cell properties
-		self.selectionStyle = .none
+		selectionStyle = .none
 		
 		// Container
 		let container = UIStackView()
