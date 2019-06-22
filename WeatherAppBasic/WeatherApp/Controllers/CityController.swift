@@ -31,8 +31,8 @@ class CityController: UIViewController {
 		}
 	}
 	
-	let tableView = UITableView()
-	let mapView = MKMapView(frame: CGRect(x: 0, y: 0, width: 0, height: 300))
+	var tableView = UITableView()
+	var mapView = MKMapView()
 	
 	var city: City?
 	
@@ -66,46 +66,13 @@ extension CityController {
 		navigationController?.navigationBar.prefersLargeTitles = true
 		navigationController?.navigationItem.largeTitleDisplayMode = .automatic
 
-		// Register Delegates
+		// TableView
+		tableView = UITableView(parent: view)
 		tableView.delegate = self
 		tableView.dataSource = self
 		
-		// Register Cells
-		tableView.register(CurrentCell.self, forCellReuseIdentifier: CurrentCell.identifier)
-		tableView.register(DailyCell.self, forCellReuseIdentifier: DailyCell.identifier)
-		
-		// Misc Properties
-		tableView.separatorStyle = .singleLine
-		tableView.contentInsetAdjustmentBehavior = .automatic
-		
-		// TableView Header
-		//tableView.tableHeaderView = mapView
-		
-		// Row Height
-		tableView.rowHeight = UITableView.automaticDimension
-		tableView.estimatedRowHeight = 10
-		
-		// Add TableView
-		view.addSubview(tableView)
-		tableView.anchor(top: view.topAnchor,
-						 paddingTop: 250,
-						 bottom: view.bottomAnchor,
-						 left: view.leftAnchor,
-						 right: view.rightAnchor)
-		
 		// MapView
-		mapView.isHidden = true
-		mapView.mapType = .standard
-		mapView.isZoomEnabled = false
-		mapView.isPitchEnabled = false
-		mapView.isRotateEnabled = false
-		mapView.isScrollEnabled = false
-		
-		view.addSubview(mapView)
-		mapView.anchor(top: view.topAnchor,
-					   left: view.leftAnchor,
-					   right: view.rightAnchor,
-					   height: 250)
+		mapView = CityMapView(parent: view)
 	}
 	
 	fileprivate func updateTableView() {
