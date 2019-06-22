@@ -75,11 +75,11 @@ extension CityController {
 		tableView.register(DailyCell.self, forCellReuseIdentifier: DailyCell.identifier)
 		
 		// Misc Properties
-		tableView.separatorStyle = .none
+		tableView.separatorStyle = .singleLine
 		tableView.contentInsetAdjustmentBehavior = .automatic
 		
 		// TableView Header
-		tableView.tableHeaderView = mapView
+		//tableView.tableHeaderView = mapView
 		
 		// Row Height
 		tableView.rowHeight = UITableView.automaticDimension
@@ -88,6 +88,7 @@ extension CityController {
 		// Add TableView
 		view.addSubview(tableView)
 		tableView.anchor(top: view.topAnchor,
+						 paddingTop: 250,
 						 bottom: view.bottomAnchor,
 						 left: view.leftAnchor,
 						 right: view.rightAnchor)
@@ -99,6 +100,12 @@ extension CityController {
 		mapView.isPitchEnabled = false
 		mapView.isRotateEnabled = false
 		mapView.isScrollEnabled = false
+		
+		view.addSubview(mapView)
+		mapView.anchor(top: view.topAnchor,
+					   left: view.leftAnchor,
+					   right: view.rightAnchor,
+					   height: 250)
 	}
 	
 	fileprivate func updateTableView() {
