@@ -9,7 +9,7 @@
 import UIKit
 import MapKit
 
-class CityController: UITableViewController {
+class CityController: UIViewController {
 	
 	enum TableSections: Int {
 		
@@ -31,7 +31,8 @@ class CityController: UITableViewController {
 		}
 	}
 	
-	let mapView = MKMapView(frame: CGRect(x: 0, y: 0, width: 0, height: 200))
+	let tableView = UITableView()
+	let mapView = MKMapView(frame: CGRect(x: 0, y: 0, width: 0, height: 300))
 	
 	var city: City?
 	
@@ -65,12 +66,16 @@ extension CityController {
 		navigationController?.navigationBar.prefersLargeTitles = true
 		navigationController?.navigationItem.largeTitleDisplayMode = .automatic
 
+		// Register Delegates
+		tableView.delegate = self
+		tableView.dataSource = self
+		
 		// Register Cells
 		tableView.register(CurrentCell.self, forCellReuseIdentifier: CurrentCell.identifier)
 		tableView.register(DailyCell.self, forCellReuseIdentifier: DailyCell.identifier)
 		
 		// Misc Properties
-		//tableView.separatorStyle = .none
+		tableView.separatorStyle = .none
 		tableView.contentInsetAdjustmentBehavior = .automatic
 		
 		// TableView Header
@@ -79,6 +84,13 @@ extension CityController {
 		// Row Height
 		tableView.rowHeight = UITableView.automaticDimension
 		tableView.estimatedRowHeight = 10
+		
+		// Add TableView
+		view.addSubview(tableView)
+		tableView.anchor(top: view.topAnchor,
+						 bottom: view.bottomAnchor,
+						 left: view.leftAnchor,
+						 right: view.rightAnchor)
 		
 		// MapView
 		mapView.isHidden = true
@@ -104,16 +116,16 @@ extension CityController {
 }
 
 // MARK: - UITableViewDataSource
-extension CityController {
+extension CityController: UITableViewDataSource {
 	
-	override func numberOfSections(in tableView: UITableView) -> Int {
+	func numberOfSections(in tableView: UITableView) -> Int {
 		guard let _ = city else {
 			return 0
 		}
 		return TableSections.count
 	}
 
-	override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+	func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
 		if let city = city {
 			switch TableSections(rawValue: section) {
 			case .current?: return 1
@@ -124,7 +136,7 @@ extension CityController {
 		return 0
 	}
 	
-	override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+	func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
 
 		guard let city = city else {
 			return UITableViewCell()
@@ -147,8 +159,8 @@ extension CityController {
 }
 
 // MARK: - UITableViewDelegate
-extension CityController {
-	override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+extension CityController: UITableViewDelegate {
+	func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
 		switch TableSections(rawValue: indexPath.section) {
 		case .current?: return 200
 		case .daily?: return 54

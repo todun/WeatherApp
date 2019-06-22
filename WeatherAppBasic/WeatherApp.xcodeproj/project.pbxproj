@@ -333,12 +333,28 @@
 		609508FC22B936E600A64D8E /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				60C71BB122BE143100A98101 /* Cells */,
+				60C71BB222BE143D00A98101 /* Components */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		60C71BB122BE143100A98101 /* Cells */ = {
+			isa = PBXGroup;
+			children = (
 				60DE510622BBAECA0073E458 /* CurrentCell.swift */,
 				6072743A22BC379500C02684 /* HourlyCell.swift */,
 				609508FA22B936DC00A64D8E /* DailyCell.swift */,
+			);
+			path = Cells;
+			sourceTree = "<group>";
+		};
+		60C71BB222BE143D00A98101 /* Components */ = {
+			isa = PBXGroup;
+			children = (
 				6074DD2522BD2B0100E87B78 /* IntroView.swift */,
 			);
-			path = Views;
+			path = Components;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
